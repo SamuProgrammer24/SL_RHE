@@ -1,0 +1,256 @@
+<div class="container mt-4">
+    <!-- Notificación (mensaje de éxito o error) -->
+    <div *ngIf="notification" class="alert alert-info mt-3">
+     {{ notification }}
+   </div>
+   <form [formGroup]="reporteForm" (ngSubmit)="onSubmit()">
+     <!-- Encabezado -->
+     <div class="row mb-3">
+       <div class="col-2">
+         <img src="../../assets/Logo4.png" alt="Santa Lucia" class="img-fluid" style="max-height: 70px;" />
+       </div>
+       <div class="col-8 text-center">
+         <h4>FORMATO REPORTE DE TIEMPO EXTRA</h4>
+       </div>
+       <div class="col-2 text-right">
+         <small>
+           FO-1-TE-16<br />
+           VERSION 01<br />
+           Página 1 de 1
+         </small>
+       </div>
+     </div>
+ 
+     <!-- Fecha y Centro -->
+ <div class="row mb-3">
+   <div class="col-3">
+     <div class="form-group row">
+       <label for="fechaReporte" class="col-5">FECHA DE REPORTE:</label>
+       <div class="col-6">
+         <input id="fechaReporte" formControlName="fechaReporte" type="date" class="form-control form-control-sm" />
+       </div>
+     </div>
+   </div>
+   
+   <div class="col-9"> 
+     <div class="row">
+       <div class="col-12 col-md-4"> 
+         <select formControlName="centroOperacion" class="form-control form-control-sm">
+           <option value="">Seleccione Centro de operacion</option>
+           <option value="1">Centro de operacion 1</option>
+           <option value="2">Centro de operacion 2</option>
+           <option value="3">Centro de operacion 3</option>
+         </select>
+       </div>
+       <div class="col-12 col-md-4">
+         <select formControlName="centroCosto" class="form-control form-control-sm">
+           <option value="">Seleccione Centro de Costo</option>
+           <option value="1">Centro de Costo 1</option>
+           <option value="2">Centro de Costo 2</option>
+           <option value="3">Centro de Costo 3</option>
+         </select>
+       </div>
+       <div class="col-12 col-md-4"> <!-- Cambié el col-4 por col-12 en pantallas pequeñas y col-md-4 en pantallas grandes -->
+         <select formControlName="puntoServicio" class="form-control form-control-sm">
+           <option value="">Seleccione Punto de Servicio</option>
+           <option value="1">Punto de Servicio 1</option>
+           <option value="2">Punto de Servicio 2</option>
+           <option value="3">Punto de Servicio 3</option>
+         </select>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+     <!-- Nota -->
+     <div class="alert alert-secondary py-1">
+       <small>NOTA: Este informe debe diligenciarse de forma correcta, clara y completa de acuerdo al cronograma de entrega de novedades.</small>
+     </div>
+ 
+ <div class="container mt-4">
+   <form [formGroup]="reporteForm" (ngSubmit)="onSubmit()">
+     
+     <!-- Tabla de Información del Colaborador -->
+     <div class="table-responsive mb-3">
+       <table class="table table-bordered table-sm">
+         <thead class="thead-light">
+           <tr>
+             <th rowspan="2" style="width: 5%;">Registro</th>
+             <th rowspan="2" style="width: 10%;">Identificación</th>
+             <th colspan="3" style="width: 60%;">INFORMACIÓN DEL COLABORADOR</th>
+             <th colspan="2" style="width: 10%;">HORARIO Habitual</th>
+             <th colspan="3" style="width: 15%;">Fecha en que ocurre</th>
+             <th colspan="2" style="width: 10%;">Hora de Entrada</th>
+             <th colspan="2" style="width: 10%;">Hora de Salida</th>
+           </tr>
+           <tr>
+             <th style="width: 20%;">1er. Apellido</th>
+             <th style="width: 20%;">2do. Apellido</th>
+             <th style="width: 20%;">Nombre</th>
+             <th style="width: 5%;">AM</th>
+             <th style="width: 5%;">PM</th>
+             <th style="width: 5%;">AA</th>
+             <th style="width: 5%;">MM</th>
+             <th style="width: 5%;">DD</th>
+             <th style="width: 5%;">AM</th>
+             <th style="width: 5%;">PM</th>
+             <th style="width: 5%;">AM</th>
+             <th style="width: 5%;">PM</th>
+           </tr>
+         </thead>
+         <tbody formArrayName="empleados">
+           <tr *ngFor="let empleado of empleados.controls; let i = index" [formGroupName]="i">
+             <td>{{ i + 1 }}</td>
+             <td><input type="text" formControlName="id" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="primerApellido" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="segundoApellido" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="nombre" class="form-control form-control-sm border-0" /></td>
+             <td><input type="time" formControlName="horarioHabitualAM" class="form-control form-control-sm border-0" /></td>
+             <td><input type="time" formControlName="horarioHabitualPM" class="form-control form-control-sm border-0" /></td>
+             <td><input type="number" formControlName="fechaOcurreAño" class="form-control form-control-sm border-0" /></td>
+             <td><input type="number" formControlName="fechaOcurreMes" class="form-control form-control-sm border-0" /></td>
+             <td><input type="number" formControlName="fechaOcurreDia" class="form-control form-control-sm border-0" /></td>
+             <td><input type="time" formControlName="horaEntradaAM" class="form-control form-control-sm border-0" /></td>
+             <td><input type="time" formControlName="horaEntradaPM" class="form-control form-control-sm border-0" /></td>
+             <td><input type="time" formControlName="horaSalidaAM" class="form-control form-control-sm border-0" /></td>
+             <td><input type="time" formControlName="horaSalidaPM" class="form-control form-control-sm border-0" /></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+ 
+     <!-- Tabla de Tiempo Utilizado -->
+     <div class="table-responsive mb-3">
+       <table class="table table-bordered table-sm">
+         <thead class="thead-light">
+           <tr>
+             <th colspan="5" style="width: 25%">TIEMPO UTILIZADO (En Alimentación)</th>
+             <th colspan="7" style="width: 35%">NÚMERO DE HORAS EXTRAS</th>
+             <th rowspan="2" style="width: 30%">MOTIVO</th>
+             <th colspan="2" class="compensacion-tiempo" style="width: 10%">FORMA DE PAGO:</th>
+           </tr>
+           <tr>
+             <th style="width: 5%;">Registro</th>
+             <th colspan="2" style="width: 18%;">AM</th>
+             <th colspan="2" style="width: 18%;">PM</th>
+             <th style="width: 3%;">RN</th>
+             <th style="width: 3%;">HEDO</th>
+             <th style="width: 4%;">HENO</th>
+             <th style="width: 4%;">HEFD</th>
+             <th style="width: 4%;">HEFN</th>
+             <th style="width: 3%;">FSC</th>
+             <th style="width: 3%;">FCC</th>
+             <th style="width: 4%;">Nómina</th>
+             <th style="width: 4%;">Tiempo</th>
+           </tr>
+         </thead>
+         <tbody formArrayName="empleados">
+           <tr *ngFor="let empleado of empleados.controls; let i = index" [formGroupName]="i">
+             <td>{{ i + 1 }}</td>
+             <td><input type="time" formControlName="tiempoUtilizadoAMHasta" class="form-control form-control-sm border-0" /></td>
+             <td><input type="time" formControlName="tiempoUtilizadoAMDesde" class="form-control form-control-sm border-0" /></td>
+             <td><input type="time" formControlName="tiempoUtilizadoPMHasta" class="form-control form-control-sm border-0" /></td>
+             <td><input type="time" formControlName="tiempoUtilizadoPMDesde" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="rn" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="hedo" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="heno" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="hefd" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="hefn" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="fsc" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="fcc" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="motivo" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="formaPagoNomina" class="form-control form-control-sm border-0" /></td>
+             <td><input type="text" formControlName="formaPagoTiempo" class="form-control form-control-sm border-0" /></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+ 
+           <!-- Leyenda de códigos -->
+       <div class="row mb-3">
+         <div class="col-12">
+           <div class="card">
+             <div class="card-body">
+               <h5 class="card-title">Leyenda de Códigos</h5>
+               <div class="row">
+                 <div class="col-4">
+                   <small>
+                     • RN - Cod:020 - Recargo Nocturno<br />
+                     • HEDO - Cod:030 - Hora extra diurna<br />
+                     • HENO - Cod:031 - Hora extra nocturna
+                   </small>
+                 </div>
+                 <div class="col-4">
+                   <small>
+                     • FSC - Cod:032 - Festivo sin compensatorio<br />
+                     • HEFD - Cod:033 - Hora Extra Festiva<br />
+                   </small>
+                 </div>
+                 <div class="col-4">
+                   <small>
+                     • FCC - Cod:035 - Festivo con compensatorio<br />
+                     • HEFN - Cod:034 - Hora Extra Festiva Nocturna
+                   </small>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+ 
+       <div class="col-6">
+         <div class="card">
+           <div class="card-body">
+             <div class="form-group">
+               <label>Firma del Jefe/Coordinador(a)</label>
+               <div class="signature-upload-container">
+                 <div id="signaturePreview" class="signature-preview mb-2">
+                   <img id="signatureImage" src="" alt="Firma digital" style="display: none; max-width: 100%; height: auto;" />
+                 </div>
+                 <div class="custom-file">
+                   <input type="file" class="custom-file-input" id="signatureFile" accept="image/*" (change)="previewSignature($event)">
+                   <label class="custom-file-label" for="signatureFile">Seleccionar archivo de firma...</label>
+                 </div>
+                 <div class="signature-controls mt-2">
+                   <label>Ajustar tamaño:</label>
+                   <input type="range" class="custom-range" id="signatureSize" min="50" max="200" value="100" (input)="adjustSignature($event)">
+                 </div>
+               </div>
+             </div>
+             <div class="form-group">
+               <label>FECHA</label>
+               <input type="date" class="form-control form-control-sm" />
+             </div>
+           </div>
+         </div>
+       </div>
+       
+   <!-- Botones de acción -->
+ <div class="row">
+   <div class="col-12">
+     <div class="card">
+       <div class="card-body text-right">
+         <button type="submit" class="btn btn-primary">Guardar</button>
+         <span class="mx-2">|</span>
+         <button type="button" class="btn btn-secondary" (click)="onCancelar()">Cancelar</button>
+         <span class="mx-2">|</span>
+         <a href="#" class="btn btn-success">
+           <i class="fas fa-file-excel"></i> Excel
+         </a>
+         <span class="mx-2">|</span>
+         <a href="#" class="btn btn-danger">
+           <i class="fas fa-file-pdf"></i> PDF
+         </a>
+         <span class="mx-2">|</span>
+         <a href="#" class="btn btn-info">
+           <i class="fas fa-eye"></i> Vista Previa
+         </a>
+         <span class="mx-2">|</span>
+         <button class="btn btn-primary" type="submit" (click)="onSubmit()">
+           <i class="bi bi-send"></i> Enviar
+         </button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 

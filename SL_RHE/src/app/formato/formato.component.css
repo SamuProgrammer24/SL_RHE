@@ -1,0 +1,83 @@
+.table-responsive {
+    overflow-x: auto;
+  }
+  
+  .table th, .table td {
+    white-space: nowrap;
+  }
+  
+  .table th {
+    text-align: center;
+  }
+  
+  .table td input {
+    width: 100%;
+    min-width: 150px; /* Ajusta este valor según sea necesario */
+  }
+  
+  /* Ajustes de ancho para encabezados con colspan */
+  .table th[colspan="3"] {
+    width: 45%; /* Ajustado para reflejar el cambio en la tabla */
+  }
+  
+  .table th[colspan="2"] {
+    width: 20%; /* Cambiado de 10% a 20% para mejor distribución */
+  }
+  
+  /* Ajustes de ancho para encabezados con estilos específicos */
+  .table th[style*="width: 10%"] {
+    width: 10%;
+  }
+  
+  .table th[style*="width: 5%"] {
+    width: 5%;
+  }
+  
+  .table th[style*="width: 7%"] {
+    width: 7%; /* Cambiado de 10% a 7% para consistencia */
+  }
+  
+  /* Ajustes específicos para las columnas de apellidos y nombre */
+  .table th[style*="width: 15%"] {
+    width: 15%;
+  }
+  
+  .col-num-i {
+    width: 1%;
+  }
+  
+  /* Ajustes específicos para las columnas RN, HEDO, HENO, HEFD, HEFN, FSC, FCC */
+  .table td input[name="rn"],
+  .table td input[name="hedo"],
+  .table td input[name="heno"],
+  .table td input[name="hefd"],
+  .table td input[name="hefn"],
+  .table td input[name="fsc"],
+  .table td input[name="fcc"] {
+    width: 20px; /* Ajusta este valor según sea necesario */
+  }
+  
+  /* Estilo para la notificación */
+  .notification {
+    position: fixed;
+    bottom: 20px; /* Ajusta la distancia desde la parte inferior */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50; /* Color de fondo verde para mensajes de éxito */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .notification.error {
+    background-color: #f44336; /* Rojo para errores */
+  }
+  
+  .notification.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
