@@ -13,14 +13,26 @@ import { CommonModule } from '@angular/common';
 export default class LoginComponent {
   email: string = '';
   password: string = '';
-  isEmailValid: boolean = true;
+  isEmailValid: boolean = false;
   showLoginError: boolean = false;
-  errorMessage: string = ''; // Mensaje de error o éxito
-  isLoginSuccess: boolean = false; // Flag para determinar si el login fue exitoso
+  errorMessage: string = ''; 
+  isLoginSuccess: boolean = false;
 
   constructor(private router: Router) {}
 
+  // Nuevo método para manejar cambios en el correo
+  onEmailChange() {
+    this.isEmailValid = this.isValidEmail(this.email);
+  }
+
+  // Nuevo método para manejar cambios en la contraseña
+  onPasswordChange() {
+    // Validación de longitud de contraseña
+    this.password = this.password.trim();
+  }
+
   login() {
+    // Validación final antes del login
     this.isEmailValid = this.isValidEmail(this.email);
 
     const testAccounts = [
@@ -34,30 +46,25 @@ export default class LoginComponent {
     );
 
     if (matchingAccount) {
-      // Si las credenciales son correctas
       this.errorMessage = 'Bienvenido al reporte de horas extras de Santa Lucia';
-      this.isLoginSuccess = true; // El login fue exitoso
-      this.showLoginError = true; // Mostrar el mensaje
+      this.isLoginSuccess = true;
+      this.showLoginError = true;
       setTimeout(() => {
-        this.showLoginError = false;  // Ocultar el mensaje después de 4 segundos
-        // Navegar después de ocultar el mensaje
+        this.showLoginError = false;
         this.router.navigate(['/formato']);
-      }, 4000);  // 4 segundos
+      }, 4000);
     } else {
-      // Si las credenciales no son correctas
       this.errorMessage = 'Correo electrónico o contraseña incorrectos. Por favor, vuelve a intentarlo.';
-      this.isLoginSuccess = false; // El login falló
-      this.showLoginError = true;  // Mostrar el mensaje de error
+      this.isLoginSuccess = false;
+      this.showLoginError = true;
       setTimeout(() => {
-        this.showLoginError = false;  // Ocultar el mensaje después de 4 segundos
-        // Navegar después de ocultar el mensaje
-        this.router.navigate(['/formato']);
-      }, 4000);  // 4 segundos
+        this.showLoginError = false;
+      }, 4000);
     }
   }
 
   isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(email.trim());
   }
 }

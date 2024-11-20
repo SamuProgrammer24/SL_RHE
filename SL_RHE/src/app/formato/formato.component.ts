@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';  // Asegúrate de importar Router
 
 @Component({
   selector: 'app-formato',
@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+  
   ]
 })
 export class FormatoComponent implements OnInit {
@@ -114,7 +114,8 @@ export class FormatoComponent implements OnInit {
     }
   ];
 
-  constructor(private fb: FormBuilder) { }
+  // Inyección del Router
+  constructor(private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -140,10 +141,8 @@ export class FormatoComponent implements OnInit {
 
   // Cargar los datos de los empleados en el FormArray
   cargarEmpleados(): void {
-    // Cargar 3 colaboradores de ejemplo
     this.colaboradoresData.forEach((colaborador) => {
       this.empleados.push(this.fb.group({
-        // Información del Colaborador
         id: [colaborador.id],
         primerApellido: [colaborador.primerApellido],
         segundoApellido: [colaborador.segundoApellido],
@@ -157,8 +156,6 @@ export class FormatoComponent implements OnInit {
         horaEntradaPM: [colaborador.horaEntradaPM],
         horaSalidaAM: [colaborador.horaSalidaAM],
         horaSalidaPM: [colaborador.horaSalidaPM],
-
-        // Tiempo Utilizado
         tiempoUtilizadoAMHasta: [colaborador.tiempoUtilizadoAMHasta],
         tiempoUtilizadoAMDesde: [colaborador.tiempoUtilizadoAMDesde],
         tiempoUtilizadoPMHasta: [colaborador.tiempoUtilizadoPMHasta],
@@ -177,37 +174,40 @@ export class FormatoComponent implements OnInit {
     });
   }
 
- // Función para mostrar la notificación
-showNotification(message: string, isError: boolean = false): void {
-  this.notification = message;
-  setTimeout(() => {
-    this.notification = null;  // La notificación desaparece después de 3 segundos
-  }, 5000);
-}
+  // Función para mostrar la notificación
+  showNotification(message: string, isError: boolean = false): void {
+    this.notification = message;
+    setTimeout(() => {
+      this.notification = null;  // La notificación desaparece después de 5 segundos
+    }, 5000);
+  }
 
-// Métodos para manejar los botones y mostrar notificaciones
-onGuardar(): void {
-  this.showNotification('Se han actualizado y guardado los datos del formulario.');
-}
+  // Métodos para manejar los botones y mostrar notificaciones
+  onGuardar(): void {
+    this.showNotification('Se han actualizado y guardado los datos del formulario.');
+  }
 
-onCancelar(): void {
-  this.showNotification('Se ha cancelado el actualizado de los datos.');
-}
+  onCancelar(): void {
+    this.showNotification('Se ha cancelado el actualizado de los datos.');
+  }
 
-onEnviar(): void {
-  this.showNotification('Se ha diligenciado y enviado el formulario.');
-}
-
-// Método para manejar el envío del formulario
+  // Método para manejar el envío del formulario
 onSubmit(): void {
   if (this.reporteForm.valid) {
     console.log(this.reporteForm.value);  // Imprime los datos del formulario
     this.showNotification('Formulario enviado correctamente');
+
+    // Esperar 3 segundos antes de redirigir
+    setTimeout(() => {
+      this.router.navigate(['/general']);  // Redirige a la ruta '/general' después de 3 segundos
+    }, 3000);  // 3000 milisegundos = 3 segundos
   } else {
     console.log('Formulario inválido');
     this.showNotification('Formulario con errores, por favor verifique los campos', true);
   }
 }
+
+
   // Métodos para manejar la firma (si es necesario en tu formulario)
   previewSignature(event: Event): void {
     const input = event.target as HTMLInputElement;
