@@ -31,19 +31,26 @@ export default class LoginComponent {
     this.password = this.password.trim();
   }
 
-  login() {
+  async login() {
     // Validación final antes del login
     this.isEmailValid = this.isValidEmail(this.email);
 
-    const testAccounts = [
-      { email: '123@ejemplo.com', password: 'samuel' },
-      { email: 'osl@ejemplo.com', password: 'OSL2024' },
-      { email: 'sl2024@ejemplo.com', password: 'santalucia' }
-    ];
+    const URLServicio = 'http://localhost:3000/login';
+    const Respuesta = await fetch(URLServicio,
+        {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              'password': this.password, 
+              'email': this.email
+            })
+        });
 
-    const matchingAccount = testAccounts.find(
-      account => account.email === this.email && account.password === this.password
-    );
+    //Se traduce la respuesa a un objeto
+    const Resultado = await Respuesta.json();
+
+    const matchingAccount = Resultado.match;
 
     if (matchingAccount) {
       this.errorMessage = 'Bienvenido al reporte de horas extras de Santa Lucia';
